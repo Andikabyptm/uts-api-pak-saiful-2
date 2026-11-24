@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/kategori"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"nama_kategori":"Elektronik"}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 409',()=>pm.response.to.have.status(409));
+      pm.test('Body error',()=>{const j=pm.response.json();pm.expect(j.status).to.eql('error');pm.expect(j.message).to.be.a('string').and.not.empty});
+    language: text/javascript
+order: 2000

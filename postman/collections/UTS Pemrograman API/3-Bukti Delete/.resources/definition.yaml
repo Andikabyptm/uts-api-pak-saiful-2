@@ -1,0 +1,3 @@
+$kind: collection
+description: "Folder ini tanpa request. Bukti diambil di pgAdmin. (1) Setelah S07: SELECT id, kode_produk, deleted_at FROM produk WHERE id = <produkId>; (2) Setelah S10: query yang sama, deleted_at NULL. (3) Setelah S14: SELECT * FROM kategori WHERE id = <kategoriSementaraId>; hasil 0 baris."
+order: 3000

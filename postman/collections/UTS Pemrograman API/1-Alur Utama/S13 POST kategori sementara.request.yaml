@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/kategori"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"nama_kategori":"Sementara {{$timestamp}}-{{$randomInt}}"}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 201',()=>pm.response.to.have.status(201));
+      pm.test('Simpan kategoriSementaraId',()=>{const j=pm.response.json();pm.expect(j.data.id).to.be.a('number');pm.environment.set('kategoriSementaraId',j.data.id)});
+    language: text/javascript
+order: 13000

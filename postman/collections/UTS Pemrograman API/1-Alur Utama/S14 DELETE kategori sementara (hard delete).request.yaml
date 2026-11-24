@@ -1,0 +1,11 @@
+$kind: http-request
+description: "BUKTI DB #3: jalankan SELECT di pgAdmin, baris harus hilang."
+url: "{{baseUrl}}/api/kategori/{{kategoriSementaraId}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 204',()=>pm.response.to.have.status(204));
+      pm.test('Tanpa body',()=>pm.expect(pm.response.text()).to.eql(''));
+    language: text/javascript
+order: 14000

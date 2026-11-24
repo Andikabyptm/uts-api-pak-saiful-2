@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/produk/{{produkId}}"
+method: PATCH
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"stok":40}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 200',()=>pm.response.to.have.status(200));
+      pm.test('Hanya stok berubah',()=>{const d=pm.response.json().data;pm.expect(d.stok).to.eql(40);pm.expect(d.harga).to.eql(20000);pm.expect(d.nama_produk).to.eql('Produk Uji Diperbarui')});
+    language: text/javascript
+order: 6000

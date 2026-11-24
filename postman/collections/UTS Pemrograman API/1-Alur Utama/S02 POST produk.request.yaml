@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/produk"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"kategori_id":{{kategoriId}},"kode_produk":"UJI-{{$timestamp}}-{{$randomInt}}","nama_produk":"Produk Uji","harga":15000,"stok":25}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 201',()=>pm.response.to.have.status(201));
+      pm.test('Simpan produkId, deleted_at null',()=>{const j=pm.response.json();pm.expect(j.data.deleted_at).to.eql(null);pm.expect(j.data.kategori_id).to.eql(Number(pm.environment.get('kategoriId')));pm.environment.set('produkId',j.data.id)});
+    language: text/javascript
+order: 2000

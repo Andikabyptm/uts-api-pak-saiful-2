@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/api/produk"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"kategori_id":{{kategoriId}},"kode_produk":"ERR-{{$timestamp}}-{{$randomInt}}","nama_produk":"Produk Salah","harga":-5,"stok":"banyak"}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 400',()=>pm.response.to.have.status(400));
+      pm.test('Body error',()=>{const j=pm.response.json();pm.expect(j.status).to.eql('error');pm.expect(j.message).to.be.a('string').and.not.empty});
+      pm.test('errors berisi 2 pesan',()=>pm.expect(pm.response.json().errors).to.have.lengthOf(2));
+    language: text/javascript
+order: 3000

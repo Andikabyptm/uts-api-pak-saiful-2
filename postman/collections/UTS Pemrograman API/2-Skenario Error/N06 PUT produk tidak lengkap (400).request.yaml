@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/produk/{{produkId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"nama_produk":"Baru"}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 400',()=>pm.response.to.have.status(400));
+      pm.test('Body error',()=>{const j=pm.response.json();pm.expect(j.status).to.eql('error');pm.expect(j.message).to.be.a('string').and.not.empty});
+    language: text/javascript
+order: 6000

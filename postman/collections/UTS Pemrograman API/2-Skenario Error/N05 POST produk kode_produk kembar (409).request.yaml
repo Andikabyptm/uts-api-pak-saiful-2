@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/produk"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"kategori_id":{{kategoriId}},"kode_produk":"ELK-001","nama_produk":"Kode Kembar","harga":10000,"stok":5}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 409',()=>pm.response.to.have.status(409));
+      pm.test('Body error',()=>{const j=pm.response.json();pm.expect(j.status).to.eql('error');pm.expect(j.message).to.be.a('string').and.not.empty});
+    language: text/javascript
+order: 5000

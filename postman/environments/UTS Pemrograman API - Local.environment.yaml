@@ -1,0 +1,10 @@
+name: UTS Pemrograman API - Local
+values:
+  - key: baseUrl
+    value: 'http://localhost:3000'
+  - key: kategoriId
+    value: ''
+  - key: produkId
+    value: ''
+  - key: kategoriSementaraId
+    value: ''

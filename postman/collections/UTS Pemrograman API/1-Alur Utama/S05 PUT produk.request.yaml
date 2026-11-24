@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/produk/{{produkId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"kategori_id":{{kategoriId}},"kode_produk":"UJ2-{{$timestamp}}-{{$randomInt}}","nama_produk":"Produk Uji Diperbarui","harga":20000,"stok":30}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 200',()=>pm.response.to.have.status(200));
+      pm.test('Semua field berubah',()=>{const d=pm.response.json().data;pm.expect(d.kode_produk).to.match(/^UJ2-/);pm.expect(d.nama_produk).to.eql('Produk Uji Diperbarui');pm.expect(d.harga).to.eql(20000);pm.expect(d.stok).to.eql(30)});
+    language: text/javascript
+order: 5000

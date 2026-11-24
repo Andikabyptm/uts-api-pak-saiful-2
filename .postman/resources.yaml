@@ -1,0 +1,15 @@
+# Use this workspace to collaborate
+workspace:
+  id: efa4091e-8664-47d1-8e12-1122255cc642
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/UTS Pemrograman API: f85ad56d-d941-4fe5-9adf-b186540e0725
+
+# All resources in the `postman/` folder are automatically registered in Local View.
+# Point to additional files outside the `postman/` folder to register them individually. Example:
+#localResources:
+#  collections:
+#    - ../tests/E2E Test Collection/

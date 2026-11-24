@@ -1,0 +1,11 @@
+$kind: http-request
+description: "BUKTI DB #1: jalankan SELECT di pgAdmin, deleted_at harus terisi."
+url: "{{baseUrl}}/api/produk/{{produkId}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 204',()=>pm.response.to.have.status(204));
+      pm.test('Tanpa body',()=>pm.expect(pm.response.text()).to.eql(''));
+    language: text/javascript
+order: 7000

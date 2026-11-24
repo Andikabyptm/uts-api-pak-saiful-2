@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/api/kategori/{{kategoriId}}/produk"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 200',()=>pm.response.to.have.status(200));
+      pm.test('count>=1 dan memuat produk S02',()=>{const j=pm.response.json();const id=Number(pm.environment.get('produkId'));pm.expect(j.count).to.be.at.least(1);pm.expect(j.data.some(p=>p.id===id)).to.eql(true)});
+    language: text/javascript
+order: 4000

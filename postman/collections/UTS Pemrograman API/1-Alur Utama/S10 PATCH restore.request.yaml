@@ -1,0 +1,11 @@
+$kind: http-request
+description: "BUKTI DB #2: jalankan SELECT di pgAdmin, deleted_at harus NULL."
+url: "{{baseUrl}}/api/produk/{{produkId}}/restore"
+method: PATCH
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status 200',()=>pm.response.to.have.status(200));
+      pm.test('deleted_at null',()=>pm.expect(pm.response.json().data.deleted_at).to.eql(null));
+    language: text/javascript
+order: 10000
